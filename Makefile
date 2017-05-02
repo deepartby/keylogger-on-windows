@@ -2,8 +2,7 @@ CC = g++
 CFLAGS = -c -Wall -pedantic
 SHAREDFLAG = -shared
 STAND:=  -std=c++0x
-APP = logger
-LIB = MyHookDll.dll
+APP = mysvchost
 APP_SOURCES = logger.cpp
 APP_OBJECTS = $(APP_SOURCES:.c=.o)
 
