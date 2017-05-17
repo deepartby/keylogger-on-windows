@@ -1,3 +1,10 @@
-﻿  main.cpp
+﻿  autorun.cpp
+autorun.cpp(7): warning C4101: 'szWinPath': unreferenced local variable
+  main.cpp
+  sendmail.cpp
+  writeinlog.cpp
+writeinlog.cpp(114): warning C4244: '=': conversion from 'WCHAR' to 'char', possible loss of data
+  Generating Code...
+  .NETFramework,Version=v4.0.AssemblyAttributes.cpp
   logger.vcxproj -> E:\learning\courses\logger2\Debug\logger.exe
   logger.vcxproj -> E:\learning\courses\logger2\Debug\logger.pdb (Full PDB)

