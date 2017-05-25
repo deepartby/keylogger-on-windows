@@ -94,10 +94,6 @@ NTSTATUS WINAPI DetourNtQuerySystemInformation(
 
 BOOL WINAPI DllMain(HINSTANCE module_handle, DWORD reason_for_call, LPVOID reserved)
 {
-	static char namefile[] = "E:\\learning\\courses\\logger2\\x64\\Debug\\dll.txt";
-	//SetFileAttributes(LPCWSTR(namefile), FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM);
-	std::ofstream log(namefile, std::ios::app);
-	log << "[+] Start in dll" << std::endl;
 	PNQSI pNQSI = (PNQSI)GetProcAddress(GetModuleHandleA("ntdll.dll"), "NtQuerySystemInformation");
 
 	if (reason_for_call == DLL_PROCESS_ATTACH) // Self-explanatory
@@ -105,21 +101,10 @@ BOOL WINAPI DllMain(HINSTANCE module_handle, DWORD reason_for_call, LPVOID reser
 		DisableThreadLibraryCalls(module_handle); // Disable DllMain calls for DLL_THREAD_*
 		if (reserved == NULL) // Dynamic load
 		{
-	
-
-			if (MH_Initialize() != MH_OK)
-				return false;
-			log << "[+] Dynamic load func" << std::endl;
-			if (MH_CreateHook(pNQSI, &DetourNtQuerySystemInformation, reinterpret_cast<LPVOID*>(&pNQSI_WinAPI)) != MH_OK)
-			{
-				log << "[!] Dynamic not loaded func" << std::endl;
-				return false;
-			}
-
-				if (MH_EnableHook(pNQSI) != MH_OK) {
-					log << "[!] Hook not enabled" << std::endl;
-					return false;
-				}
+			// Initialize your stuff or whatever
+			if (MH_Initialize() != MH_OK)	return false;
+			if (MH_CreateHook(pNQSI, &DetourNtQuerySystemInformation, reinterpret_cast<LPVOID*>(&pNQSI_WinAPI)) != MH_OK)	return false;
+			if (MH_EnableHook(pNQSI) != MH_OK)	return false;	
 		}
 		else // Static load
 		{
@@ -137,11 +122,9 @@ BOOL WINAPI DllMain(HINSTANCE module_handle, DWORD reason_for_call, LPVOID reser
 		else // Process is terminating
 		{
 			// Cleanup
-			log << "[+] Disable my dll" << std::endl;
 			MH_DisableHook(&pNQSI);
 			MH_Uninitialize();
 		}
 	}
-	log.close();
 	return TRUE;
 }
